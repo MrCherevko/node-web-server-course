@@ -12,6 +12,7 @@ app.use((req,response,next)=> {
     var log = `${now} ${req.method} ${req.url}`;
     console.log(log);
     fs.appendFile('server.log', log + '\n',(error) => {
+        console.log(error);
         console.log('Unable to append to server.log');
     });
     next();
@@ -49,6 +50,12 @@ app.get('/bad', (req, res) => {
     res.send({
         errMsg: 'Error no content found'
     })
+});
+
+app.get('/projects', (req, res) => {
+    res.render('projects.hbs',{
+        pageTitle: 'Projects page'
+    });
 });
 
 app.listen(port, ()=> {
